@@ -32,6 +32,7 @@ header {
   max-width: 1440px;
   display: flex;
   justify-content: space-between;
+  
 }
 
 header h1 {
@@ -56,6 +57,106 @@ header img {
     rgb(21, 39, 46),
     rgb(33, 37, 42)
   );
+  display: flex;
+    justify-content: center;
+  padding: 5%;
+}
+
+#contentWrapper {
+  width: 100%;
+  height: 100%;
+  max-width: 1440px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 3%;
+}
+
+.pokemonCard {
+  border: 1px solid black;
+  border-radius: 8px;
+  width: 200px;
+  height: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-bottom: 3%;
+}
+
+.cardName {
+  height: 40px;
+  width: 100%;
+  padding: 5%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10%;
+  color: rgb(173, 202, 210);
+  background-color: rgb(33, 37, 42);
+  border-top-right-radius: 8px;
+  border-top-left-radius: 8px;
+}
+
+.cardElement {
+  height: 40px;
+  width: 100%;
+  padding: 5%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10%;
+  color: rgb(33, 37, 42);
+  background-color: rgb(33, 37, 42);
+  border-bottom-right-radius: 8px;
+  border-bottom-left-radius: 8px;
+}
+
+.cardBackground {
+  height: calc(100% - 80px);
+  background-color: lightgreen;
+  display: flex;
+  justify-content: center;
+  align-items: end;
+}
+
+.cardBackground img {
+  height: 70%;
+}
+
+.elementTag {
+    border: 1px solid white;
+    border-radius: 4px;
+    width: 35%;
+    text-align: center;
+    padding: 1% 2%;
+}
+
+.grassBg{
+    background-color: green;
+}
+
+.poisonBg{
+    background-color: violet;
+}
+
+.fireBg{
+    background-color: tomato;
+}
+
+.flyingBg{
+    background-color: darkgrey;
+}
+
+.waterBg{
+    background-color: aqua;
+}
+
+.bugBg{
+    background-color: fuchsia;
+}
+
+.normalBg{
+    background-color: grey;
 }
 
 footer {
