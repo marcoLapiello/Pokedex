@@ -18,6 +18,21 @@ async function loadData() {
   }
 }
 
+async function loadMore() {
+    for (let index = 21; index < 41; index++) {
+        let response = await fetch(baseUrl + index);
+        let responseAsJson = await response.json();
+        document.getElementById("contentWrapper").innerHTML += getCardTemplate(responseAsJson, index);
+    
+        for (let indexElement = 0; indexElement < responseAsJson.types.length; indexElement++) {
+          let type = responseAsJson.types[indexElement].type.name;
+          document.getElementById(`cardType${index}`).innerHTML += getTypeTemplate(type);
+          document.getElementById(`cardBackground${index}`).classList.add(`${responseAsJson.types[0].type.name}Bg`);
+        }
+    }
+    document.getElementById('loadBtn').classList.add('dNone')
+}
+
 function getCardTemplate(responseAsJson, index) {
   return /*html*/ `
         <div class="pokemonCard">

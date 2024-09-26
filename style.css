@@ -58,8 +58,26 @@ header img {
     rgb(33, 37, 42)
   );
   display: flex;
+  flex-direction: column;
     justify-content: center;
+    align-items: center;
   padding: 5%;
+}
+
+#contentBackground button {
+    width: 200px;
+    height: 40px;
+    border-radius: 8px;
+    border: solid 2px rgb(33, 37, 42);
+    background-color: rgb(103, 168, 185);
+    color: rgb(33, 37, 42);
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+#contentBackground button:hover {
+    cursor: pointer;
+    scale: 1.1;
 }
 
 #contentWrapper {
@@ -126,7 +144,7 @@ header img {
 .elementTag {
     border: 1px solid white;
     border-radius: 4px;
-    width: 35%;
+    width: 40%;
     text-align: center;
     padding: 1% 2%;
 }
@@ -157,6 +175,22 @@ header img {
 
 .normalBg{
     background-color: grey;
+}
+
+.groundBg{
+    background-color: rgb(128, 75, 0);
+}
+
+.electricBg{
+    background-color: yellow;
+}
+
+.fairyBg{
+    background-color: pink;
+}
+
+.dNone {
+    display: none;
 }
 
 footer {
