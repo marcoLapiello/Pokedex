@@ -1,0 +1,68 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
+  font-family: poppins;
+}
+
+@font-face {
+  font-family: poppins;
+  src: url(../assets/poppins/Poppins-Regular.ttf);
+}
+
+/* color = rgb(33, 37, 42)
+color = rgb(47, 61, 68)
+rgb(50, 81, 91)
+rgb(60, 98, 109)
+rgb(28, 55, 65)
+rgb(21, 39, 46) */
+
+header {
+  height: 140px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(33, 37, 42);
+  padding: 0% 5%;
+}
+
+#headerWrapper {
+  width: 100%;
+  max-width: 1440px;
+  display: flex;
+  justify-content: space-between;
+}
+
+header h1 {
+  color: rgb(173, 202, 210);
+}
+
+header div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+header img {
+  height: 100px;
+}
+
+#contentBackground {
+  min-height: calc(100vh - 240px);
+  background-image: radial-gradient(
+    rgb(60, 98, 109),
+    rgb(50, 81, 91),
+    rgb(21, 39, 46),
+    rgb(33, 37, 42)
+  );
+}
+
+footer {
+  height: 100px;
+  background-color: rgb(33, 37, 42);
+  color: rgb(173, 202, 210);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
