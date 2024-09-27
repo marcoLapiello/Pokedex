@@ -4,6 +4,21 @@ const spritesBaseUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master
 
 let currentPokemonIndex = 1;
 
+window.onscroll = function() {
+  stickyHeader();
+};
+
+function stickyHeader() {
+  let header = document.getElementById("pageHeader");
+  let pixelDistanceFromTop = 1;
+  
+  if (window.scrollY > pixelDistanceFromTop) {
+    header.classList.add("fixed");
+  } else {
+    header.classList.remove("fixed");
+  }
+}
+
 function init() {
   loadData();
 }
@@ -35,9 +50,9 @@ function toggleDisplay () {
 }
 
 function updateAndScrollDown() {
-  let scrollCheckPointIndex = currentPokemonIndex - 24;
+  let scrollCheckPointIndex = currentPokemonIndex - 26;
   let checkPointPokemonCard = document.getElementById(`pokemonCard${scrollCheckPointIndex}`);
-  checkPointPokemonCard.scrollIntoView({ behavior: "instant" });
+  checkPointPokemonCard.scrollIntoView({ behavior: "smooth" });
 }
 
 function getCardTemplate(responseAsJson, index) {

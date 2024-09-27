@@ -25,7 +25,15 @@ header {
   align-items: center;
   background-color: rgb(33, 37, 42);
   padding: 0% 5%;
-  
+}
+
+.fixed {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 #headerWrapper {
