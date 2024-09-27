@@ -4,8 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Pokedex</title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="./styles/style.css" />
+    <link rel="stylesheet" href="./styles/typeBackgrounds.css" />
     <script src="./script.js"></script>
+    <script src="./templates.js"></script>
     <link
       rel="shortcut icon"
       href="assets/icons/favicon.png"
@@ -21,7 +23,7 @@
         </div>
 
         <div>
-          <input type="text" placeholder="Pokesearch" />
+          <input id="searchField" type="text" placeholder="Pokesearch" />
           <button>search</button>
         </div>
       </div>
@@ -31,7 +33,7 @@
       <div id="contentWrapper">
         
       </div>
-      <button id="loadBtn" onclick="loadMore()">Load 20 more</button>
+      <button id="loadBtn" onclick="loadData()">Load 20 more</button>
     </section>
 
     <footer>
