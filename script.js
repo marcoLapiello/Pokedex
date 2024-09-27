@@ -50,9 +50,11 @@ function toggleDisplay () {
 }
 
 function updateAndScrollDown() {
-  let scrollCheckPointIndex = currentPokemonIndex - 26;
+  if (currentPokemonIndex > 26) {
+    let scrollCheckPointIndex = currentPokemonIndex - 26;
   let checkPointPokemonCard = document.getElementById(`pokemonCard${scrollCheckPointIndex}`);
   checkPointPokemonCard.scrollIntoView({ behavior: "smooth" });
+  }
 }
 
 function getCardTemplate(responseAsJson, index) {
