@@ -6,6 +6,10 @@
   font-family: poppins;
 }
 
+.noScroll {
+  overflow: hidden;
+}
+
 @font-face {
   font-family: poppins;
   src: url(../assets/poppins/Poppins-Regular.ttf);

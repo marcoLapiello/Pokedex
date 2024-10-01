@@ -9,13 +9,14 @@
     <link rel="stylesheet" href="./styles/overlayCard.css" />
     <script src="./script.js"></script>
     <script src="./templates.js"></script>
+    <script src="./designLogic.js"></script>
     <link
       rel="shortcut icon"
       href="assets/icons/favicon.png"
       type="image/x-icon"
     />
   </head>
-  <body onload="init()">
+  <body onload="loadData()">
     <header id="pageHeader">
       <div id="headerWrapper">
         <div>
@@ -34,37 +35,7 @@
       <div id="loadingSpinner" class="loadingSpinner , dNone"></div>
 
       <div id="overlayCard" class="overlayCard , dNone">
-        <!-- <div id="overlayLeft">
-          <div id="overlayLeftTop">
-            <img src="" alt="" />
-          </div>
-
-          <div id="overlayLeftBottom">
-            <h3>Nr Name</h3>
-            <p>Height</p>
-            <p>Weight</p>
-            <p>Primary Element</p>
-            <p>Secondary Element</p>
-          </div>
-        </div>
-
-        <div id="overlayRight">
-          <div id="overlayRightTop">
-            <h3>Stats</h3>
-            <p>HP</p>
-            <p>Attack</p>
-            <p>Defense</p>
-            <p>Special Attack</p>
-            <p>Special Defense</p>
-          </div>
-
-          <div id="overlayRightBottom">
-            <h3>Abilities</h3>
-            <p>1</p>
-            <p>2</p>
-            <p>3</p>
-          </div>
-        </div> -->
+        
       </div>
 
       <div id="contentWrapper" class="contentWrapper"></div>

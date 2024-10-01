@@ -1,156 +1,116 @@
 const baseUrl = "https://pokeapi.co/api/v2/pokemon/";
 
-const spritesBaseUrl =
-  "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/";
+const spritesBaseUrl ="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/";
 
-let currentPokemonIndex = 1;
+let currentLastIndex = 1;
 
-
-
-window.onscroll = function () {
-  stickyHeader();
-};
-
-function stickyHeader() {
-  let header = document.getElementById("pageHeader");
-  let pixelDistanceFromTop = 1;
-
-  if (window.scrollY > pixelDistanceFromTop) {
-    header.classList.add("fixed");
-  } else {
-    header.classList.remove("fixed");
-  }
-}
-
-function init() {
-  loadData();
-}
+let currentOverlayPokemonIndex = "";
 
 async function loadData() {
   toggleDisplay();
-  for (
-    let index = currentPokemonIndex;
-    index < currentPokemonIndex + 20;
-    index++
-  ) {
+  for (let index = currentLastIndex; index < currentLastIndex + 20; index++) {
     let response = await fetch(baseUrl + index);
     let responseAsJson = await response.json();
     
-    document.getElementById("contentWrapper").innerHTML += getCardTemplate(
-      responseAsJson,
-      index
-    );
+    document.getElementById("contentWrapper").innerHTML += getCardTemplate(responseAsJson, index);
     
-
-    for (
-      let indexElement = 0;
-      indexElement < responseAsJson.types.length;
-      indexElement++
-    ) {
+    for (let indexElement = 0; indexElement < responseAsJson.types.length; indexElement++) {
       let type = responseAsJson.types[indexElement].type.name;
-      document.getElementById(`cardType${index}`).innerHTML +=
-        getTypeTemplate(type);
-      document
-        .getElementById(`cardBackground${index}`)
-        .classList.add(`${responseAsJson.types[0].type.name}Bg`);
+      document.getElementById(`cardType${index}`).innerHTML += getTypeTemplate(type);
+      document.getElementById(`cardBackground${index}`).classList.add(`${responseAsJson.types[0].type.name}Bg`);
     }
   }
-  currentPokemonIndex += 20;
+  currentLastIndex += 20;
   toggleDisplay();
   updateAndScrollDown();
 }
 
-function toggleDisplay() {
-  document.getElementById("loadingSpinner").classList.toggle("dNone");
-  document.getElementById("contentWrapper").classList.toggle("dNone");
-  document.getElementById("loadBtn").classList.toggle("dNone");
-  document.getElementById("loadingMessage").classList.toggle("dNone");
-}
 
-function updateAndScrollDown() {
-  if (currentPokemonIndex > 26) {
-    let scrollCheckPointIndex = currentPokemonIndex - 26;
-    let checkPointPokemonCard = document.getElementById(
-      `pokemonCard${scrollCheckPointIndex}`
-    );
-    checkPointPokemonCard.scrollIntoView({ behavior: "smooth" });
-  }
-}
 
-function getCardTemplate(responseAsJson, index) {
-  const spriteUrlSvg = `${spritesBaseUrl}${index}.svg`;
 
-  return /*html*/ `
-    <div id="pokemonCard${index}" class="pokemonCard" onclick="renderOverlayCard(${index})">
-        <div class="cardName">
-            <p>#${responseAsJson.id}</p>
-            <p>${
-              responseAsJson.name.charAt(0).toUpperCase() +
-              responseAsJson.name.slice(1)
-            }</p>
-        </div>
-        <div id="cardBackground${index}" class="cardBackground">
-                <img src="${spriteUrlSvg}" alt="">
-        </div>
-        <div id="cardType${index}" class="cardElement">
-                
-        </div>
-    </div>
-  `;
-}
-
-function getTypeTemplate(type) {
-  return /*html*/ `
-        <p class="elementTag , ${type}Bg">${type}</p>
-    `;
-}
 
 async function renderOverlayCard(index) {
   let response = await fetch(baseUrl + index);
   let responseAsJson = await response.json();
-  console.log(responseAsJson);
-
-
-  document.getElementById("overlayCard").innerHTML = getOverlayTemplate(responseAsJson, index);
+  let previousIndex = index - 1;
+  let nextIndex = index + 1;
+  
+  document.getElementById("overlayCard").innerHTML = getOverlayTemplate(responseAsJson, index, nextIndex, previousIndex);
   document.getElementById("contentWrapper").classList.toggle("dNone");
   document.getElementById("loadBtn").classList.toggle("dNone");
   document.getElementById("overlayCard").classList.toggle("dNone");
+
+  typesOverlayIteration(responseAsJson);
+  abilitiesOverlayIteration(responseAsJson);
 }
 
-function getOverlayTemplate(responseAsJson, index) {
-  const spriteUrlSvg = `${spritesBaseUrl}${index}.svg`;
+function closeOverlay(index){
+  document.getElementById("contentWrapper").classList.toggle("dNone");
+  document.getElementById("loadBtn").classList.toggle("dNone");
+  document.getElementById("overlayCard").classList.toggle("dNone");
+  currentOverlayPokemonIndex = index;
+  scrollToLastOpenedPokemon(index);
+}
 
-  return /*html*/ `
-    <div id="overlayLeft">
-      <div id="overlayLeftTop" class="${responseAsJson.types[0].type.name}Bg">
-        <img src="${spriteUrlSvg}" alt="" />
-      </div>
+function scrollToLastOpenedPokemon(index){
+  let checkPointPokemonCard = document.getElementById(`pokemonCard${index}`);
+  let yOffset = 280;
+  let cardPosition = checkPointPokemonCard.getBoundingClientRect().top + (window.scrollY - yOffset);
+  window.scrollTo({top: cardPosition, behavior: "instant" });
+}
 
-      <div id="overlayLeftBottom">
-        <h3>#${responseAsJson.id} ${responseAsJson.name.charAt(0).toUpperCase() + responseAsJson.name.slice(1)} </h3>
-        <p>Height</p><p>${responseAsJson.height}</p>
-        <p>Weight</p><p>${responseAsJson.weight}</p>
-        <p>Primary Element</p><p>${responseAsJson.types[0].type.name}</p>
-        <p>Secondary Element</p><p></p>
-      </div>
-    </div>
+async function nextPokemon(index) {
+  if (index === currentLastIndex) {
+    index = 1;
+    let nextIndex = 2;
+    let previousIndex = currentLastIndex - 1;
+    let response = await fetch(baseUrl + index);
+    let responseAsJson = await response.json();
+    document.getElementById("overlayCard").innerHTML = getOverlayTemplate(responseAsJson, index, nextIndex, previousIndex);
+    typesOverlayIteration(responseAsJson);
+    abilitiesOverlayIteration(responseAsJson);
+  } else {
+    let nextIndex = index + 1;
+    let previousIndex = index - 1;
+    let response = await fetch(baseUrl + index);
+    let responseAsJson = await response.json();
+    document.getElementById("overlayCard").innerHTML = getOverlayTemplate(responseAsJson, index, nextIndex, previousIndex);
+    typesOverlayIteration(responseAsJson);
+    abilitiesOverlayIteration(responseAsJson);
+  }
+}  
 
-    <div id="overlayRight">
-      <div id="overlayRightTop">
-        <h3>Stats</h3>
-        <p>HP</p>
-        <p>Attack</p>
-        <p>Defense</p>
-        <p>Special Attack</p>
-        <p>Special Defense</p>
-      </div>
+async function previousPokemon(index) {
+  if (index === 0) {
+    index = currentLastIndex - 1;
+    let nextIndex = 1;
+    let previousIndex = currentLastIndex - 2;
+    let response = await fetch(baseUrl + index);
+    let responseAsJson = await response.json();
+    document.getElementById("overlayCard").innerHTML = getOverlayTemplate(responseAsJson, index, nextIndex, previousIndex);
+    typesOverlayIteration(responseAsJson);
+    abilitiesOverlayIteration(responseAsJson);
+  } else {
+    let nextIndex = index + 1;
+    let previousIndex = index - 1;
+    let response = await fetch(baseUrl + index);
+    let responseAsJson = await response.json();
+    document.getElementById("overlayCard").innerHTML = getOverlayTemplate(responseAsJson, index, nextIndex, previousIndex);
+    typesOverlayIteration(responseAsJson);
+    abilitiesOverlayIteration(responseAsJson);
+  }
+}  
 
-      <div id="overlayRightBottom">
-        <h3>Abilities</h3>
-        <p>1</p>
-        <p>2</p>
-        <p>3</p>
-      </div>
-    </div>
-  `;
+function typesOverlayIteration(responseAsJson){
+  for ( let indexElement = 0; indexElement < responseAsJson.types.length; indexElement++) {
+    let type = responseAsJson.types[indexElement].type.name;
+    document.getElementById("overlayElement").innerHTML += getTypeTemplate(type);
+  };
+}
+
+function abilitiesOverlayIteration(responseAsJson){
+  for ( let indexAbility = 0; indexAbility < responseAsJson.abilities.length; indexAbility++) {
+    let Ability = responseAsJson.abilities[indexAbility].ability.name;
+    document.getElementById("overlayRightBottom").innerHTML += getAbilityTemplate(Ability);
+  };
 }
