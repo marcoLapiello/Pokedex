@@ -6,9 +6,7 @@
   font-family: poppins;
 }
 
-.noScroll {
-  overflow: hidden;
-}
+
 
 @font-face {
   font-family: poppins;
@@ -76,7 +74,7 @@ header img {
   padding: 5%;
 }
 
-#contentBackground button {
+#loadBtn {
   width: 200px;
   height: 40px;
   border-radius: 8px;
@@ -87,7 +85,7 @@ header img {
   transition: 0.3s;
 }
 
-#contentBackground button:hover {
+#loadBtn:hover {
   cursor: pointer;
   scale: 1.1;
 }
