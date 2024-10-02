@@ -82,7 +82,7 @@ function closeOverlay(index){
   document.getElementById("contentWrapper").classList.toggle("dNone");
   document.getElementById("searchField").classList.toggle("dNone");
   if (!isSearchActive) {
-    document.getElementById("loadBtn").classList.toggle("dNone"); // Mostra il bottone solo se non c'è ricerca
+    document.getElementById("loadBtn").classList.toggle("dNone");
   }
   document.getElementById("overlayCard").classList.toggle("dNone");
   currentOverlayPokemonIndex = index;
