@@ -6,14 +6,16 @@ let currentLastIndex = 1;
 
 let currentOverlayPokemonIndex = "";
 
+let originalContent = "";
+
+let isSearchActive = false;
+
 async function loadData() {
   toggleDisplay();
   for (let index = currentLastIndex; index < currentLastIndex + 20; index++) {
     let response = await fetch(baseUrl + index);
     let responseAsJson = await response.json();
-    
     document.getElementById("contentWrapper").innerHTML += getCardTemplate(responseAsJson, index);
-    
     for (let indexElement = 0; indexElement < responseAsJson.types.length; indexElement++) {
       let type = responseAsJson.types[indexElement].type.name;
       document.getElementById(`cardType${index}`).innerHTML += getTypeTemplate(type);
@@ -26,37 +28,65 @@ async function loadData() {
 }
 
 
+function search() {
+  let inputRef = document.getElementById("searchField").value.trim().toLowerCase();
+  if (inputRef.length > 2) {
+    isSearchActive = true;
+    if (!originalContent) {
+      originalContent = document.getElementById("contentWrapper").innerHTML;
+    }
+    document.getElementById("contentWrapper").innerHTML = "";
+    document.getElementById("loadBtn").classList.add("dNone");
+    searchIteration(inputRef);
+  } else {
+    isSearchActive = false;
+    if (originalContent) {
+      document.getElementById("contentWrapper").innerHTML = originalContent;
+      document.getElementById("loadBtn").classList.remove("dNone");
+    }
+  }
+}
 
-
+async function searchIteration(inputRef) {
+  for (let index = 1; index < 152; index++) {
+    let response = await fetch(baseUrl + index);
+    let responseAsJson = await response.json();
+    if (responseAsJson.name.startsWith(inputRef)) {
+      document.getElementById("contentWrapper").innerHTML += getCardTemplate(responseAsJson, index);
+      for (let indexElement = 0; indexElement < responseAsJson.types.length; indexElement++) {
+        let type = responseAsJson.types[indexElement].type.name;
+        document.getElementById(`cardType${index}`).innerHTML += getTypeTemplate(type);
+        document.getElementById(`cardBackground${index}`).classList.add(`${responseAsJson.types[0].type.name}Bg`);
+      }
+    } 
+  }
+}
 
 async function renderOverlayCard(index) {
   let response = await fetch(baseUrl + index);
   let responseAsJson = await response.json();
   let previousIndex = index - 1;
   let nextIndex = index + 1;
-  
   document.getElementById("overlayCard").innerHTML = getOverlayTemplate(responseAsJson, index, nextIndex, previousIndex);
   document.getElementById("contentWrapper").classList.toggle("dNone");
-  document.getElementById("loadBtn").classList.toggle("dNone");
+  document.getElementById("searchField").classList.toggle("dNone");
+  if (!isSearchActive) {
+    document.getElementById("loadBtn").classList.toggle("dNone");
+  }
   document.getElementById("overlayCard").classList.toggle("dNone");
-
   typesOverlayIteration(responseAsJson);
   abilitiesOverlayIteration(responseAsJson);
 }
 
 function closeOverlay(index){
   document.getElementById("contentWrapper").classList.toggle("dNone");
-  document.getElementById("loadBtn").classList.toggle("dNone");
+  document.getElementById("searchField").classList.toggle("dNone");
+  if (!isSearchActive) {
+    document.getElementById("loadBtn").classList.toggle("dNone"); // Mostra il bottone solo se non c'è ricerca
+  }
   document.getElementById("overlayCard").classList.toggle("dNone");
   currentOverlayPokemonIndex = index;
   scrollToLastOpenedPokemon(index);
-}
-
-function scrollToLastOpenedPokemon(index){
-  let checkPointPokemonCard = document.getElementById(`pokemonCard${index}`);
-  let yOffset = 280;
-  let cardPosition = checkPointPokemonCard.getBoundingClientRect().top + (window.scrollY - yOffset);
-  window.scrollTo({top: cardPosition, behavior: "instant" });
 }
 
 async function nextPokemon(index) {

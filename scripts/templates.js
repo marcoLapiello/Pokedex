@@ -103,4 +103,4 @@ function getAbilityTemplate(Ability) {
     return /*html*/ `
             <p>${Ability}</p>
         `;
-  }
+}

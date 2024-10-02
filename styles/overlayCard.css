@@ -6,7 +6,7 @@
   position: absolute;
   top: 150px;
   bottom: 100px;
-  
+
   background: linear-gradient(135deg, #ffffff1f, #ffffff09);
   backdrop-filter: blur(3px);
   max-width: 1440px;
@@ -22,14 +22,14 @@
 }
 
 .dNone {
-    display: none;
+  display: none;
 }
 
 .overlayWrapper {
   height: 100%;
   width: 100%;
   display: flex;
-  
+
   justify-content: center;
   align-items: center;
 }
@@ -107,28 +107,24 @@
 .overlayLineWrapper {
   display: flex;
   justify-content: space-between;
+  border-bottom: 1px solid rgb(33, 37, 42);
 }
 
 #overlayElement {
-  
   display: flex;
   justify-content: space-between;
   align-items: center;
-  
-}
-
-#overlayElementH3 {
-  margin:
 }
 
 .overlayBtnDiv {
   width: 100%;
-  
+
   display: flex;
   justify-content: space-between;
 }
 
-#prevBtn , #nextBtn {
+#prevBtn,
+#nextBtn {
   width: 50px;
   height: 50px;
   border-radius: 25px;
@@ -137,10 +133,14 @@
   color: rgb(33, 37, 42);
   font-weight: bolder;
   font-size: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   transition: 0.3s;
 }
 
-#prevBtn:hover , #nextBtn:hover {
+#prevBtn:hover,
+#nextBtn:hover {
   cursor: pointer;
   scale: 1.1;
 }
@@ -154,10 +154,41 @@
   color: rgb(33, 37, 42);
   font-weight: bolder;
   font-size: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   transition: 0.3s;
 }
 
 #closeBtn:hover {
   cursor: pointer;
   scale: 1.1;
+}
+
+@media(max-width: 520px){
+  h3 {
+    font-size: 16px;
+  }
+
+  p {
+    font-size: 12px;
+  }
+
+  #prevBtn,
+  #nextBtn {
+  width: 30px;
+  height: 30px;
+  border-radius: 15px;
+  
+  
+  font-size: 20px;
+  
+  }
+
+  #closeBtn {
+    width: 70px;
+    height: 30px;
+    font-size: 20px;
+    
+  }
 }
