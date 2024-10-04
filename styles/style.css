@@ -11,8 +11,10 @@
   src: url(../assets/poppins/Poppins-Regular.ttf);
 }
 
+
+
 header {
-  height: 140px;
+  height: 120px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -184,7 +186,9 @@ header img {
   padding: 1% 2%;
 }
 
-
+.hideOverflow {
+  overflow-y: hidden;
+}
 
 .dNone {
   display: none;

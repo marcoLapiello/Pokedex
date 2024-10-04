@@ -52,6 +52,7 @@ function getOverlayTemplate(responseAsJson, index, nextIndex, previousIndex) {
         </div>
       </div>
   
+      
       <div id="overlayRight">
         <div id="overlayRightTop">
           <h3>Stats</h3>

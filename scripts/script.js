@@ -67,26 +67,34 @@ async function renderOverlayCard(index) {
   let responseAsJson = await response.json();
   let previousIndex = index - 1;
   let nextIndex = index + 1;
+  prepareOverlayAnimation(index);
   document.getElementById("overlayCard").innerHTML = getOverlayTemplate(responseAsJson, index, nextIndex, previousIndex);
-  document.getElementById("contentWrapper").classList.toggle("dNone");
+  document.getElementById("overlayBlurredBg").classList.toggle("dNone");
+  document.body.style.overflowY = "hidden";
   document.getElementById("searchField").classList.toggle("dNone");
   if (!isSearchActive) {
     document.getElementById("loadBtn").classList.toggle("dNone");
   }
-  document.getElementById("overlayCard").classList.toggle("dNone");
+  executeOverlayAnimation();
   typesOverlayIteration(responseAsJson);
   abilitiesOverlayIteration(responseAsJson);
 }
 
+
 function closeOverlay(index){
-  document.getElementById("contentWrapper").classList.toggle("dNone");
   document.getElementById("searchField").classList.toggle("dNone");
   if (!isSearchActive) {
     document.getElementById("loadBtn").classList.toggle("dNone");
   }
-  document.getElementById("overlayCard").classList.toggle("dNone");
   currentOverlayPokemonIndex = index;
-  scrollToLastOpenedPokemon(index);
+  executeOverlayClosingAnimation(index);
+  setTimeout(() => {
+    document.getElementById("overlayCard").classList.toggle("dNone");
+    document.getElementById("overlayBlurredBg").classList.toggle("dNone");
+    document.body.style.overflowY = "auto";
+  },400);
+  
+  
 }
 
 async function nextPokemon(index) {
@@ -144,3 +152,5 @@ function abilitiesOverlayIteration(responseAsJson){
     document.getElementById("overlayRightBottom").innerHTML += getAbilityTemplate(Ability);
   };
 }
+
+
