@@ -1,17 +1,3 @@
-window.onscroll = function () {
-    stickyHeader();
-};
-  
-function stickyHeader() {
-    let header = document.getElementById("pageHeader");
-    let pixelDistanceFromTop = 100;
-    if (window.scrollY > pixelDistanceFromTop) {
-        header.classList.add("fixed");
-    } else {
-        header.classList.remove("fixed");
-    }
-}
-
 function toggleDisplay() {
     document.getElementById("loadingSpinner").classList.toggle("dNone");
     document.getElementById("contentWrapper").classList.toggle("dNone");

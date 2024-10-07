@@ -152,5 +152,3 @@ function abilitiesOverlayIteration(responseAsJson){
     document.getElementById("overlayRightBottom").innerHTML += getAbilityTemplate(Ability);
   };
 }
-
-
